@@ -13,8 +13,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int     @id @default(autoincrement())
-  name      String
-  email     String  @unique
+model Article {
+  id            Int @id
+  Title         String
+  Type          String 
+  BodyPart      String 
+  Equipment     String 
+  Level         String 
+}
+
+model Nutrition {
+  id            Int @id
+  calories      Int 
+  proteins      Float
+  fat           Float
+  carbohydrate  Float
+  name          String
+}
+
+model Video {
+  id             Int @id
+  name_exercise  String
+  description    String
+  name_equipment String
+  url_video      String
+  label          String
+}
+
+//untuk tes
+model Feedback {
+  id            Int @id @default(autoincrement())
+  description   String
 }
