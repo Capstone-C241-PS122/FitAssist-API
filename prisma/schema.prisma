@@ -16,6 +16,7 @@ datasource db {
 model Article {
   id            Int @id
   Title         String
+  Description   String
   Type          String 
   BodyPart      String 
   Equipment     String 
