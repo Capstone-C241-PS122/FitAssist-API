@@ -1,66 +1,47 @@
-const prisma = require("../prisma");
+const prisma = require('../prisma');
 
 const getArticle = async (req, res) => {
-    try {
-      const articles = await prisma.article.findMany();
-      res.json(articles);
-    } catch (error) {
-      console.error("Error fetching articles:", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  };
+  const title = req.query.title;
+  if (!title) {
+    return res.status(400).json({
+      error: true,
+      message: "Parameter 'title' diperlukan",
+    });
+  }
 
-  const getArticleById = async (req, res) => {
-    try {
-      const { id } = req.params;
-      const article = await prisma.article.findUnique({
-        where: { id: parseInt(id) },
+  try {
+    const articles = await prisma.article.findMany({
+      where: {
+        Title: {
+          contains: title
+        },
+      },
+    });
+
+    if (articles.length === 0) {
+      return res.status(404).json({
+        error: true,
+        message: "Data tidak ditemukan",
       });
-      if (!article) {
-        return res.status(404).json({ error: "Article not found" });
-      }
-      res.json(article);
-    } catch (error) {
-      console.error("Error fetching article:", error);
-      res.status(500).json({ error: "Internal server error" });
     }
-  };
 
-  const searchArticle = async (req, res) => {
-    try {
-      let { title, tags } = req.query;
-      let articles = [];
-  
-      title = title ? title.toLowerCase() : null;
-      tags = tags ? tags.toLowerCase() : null;
-  
-      if (title) {
-        articles = await prisma.article.findMany({
-          where: {
-            title: { contains: title },
-          },
-        });
-      } else if (tags) {
-        articles = await prisma.article.findMany({
-          where: {
-            tags: { contains: tags },
-          },
-        });
-      } else {
-        return res
-          .status(400)
-          .json({ error: "Title or tags query parameter is required" });
-      }
-  
-      res.json(articles);
-    } catch (error) {
-      console.error("Error searching articles:", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  };
+    return res.json({
+      error: false,
+      message: "Berikut hasil pencarian Anda",
+      list_article: articles.map(article => ({
+        id: article.id,
+        Title: article.Title,
+      })),
+    });
+  } catch (error) {
+    console.error("Error searching articles:", error);
+    return res.status(500).json({
+      error: true,
+      message: "Terjadi kesalahan pada server",
+    });
+  }
+};
 
 module.exports = {
-    getArticle,
-    getArticleById,
-    searchArticle
+  getArticle,
 };

@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const articleCont = require('../controller/article');
+const { getArticle } = require('../controller/article');
 
-//belum lengkap
-router.get('/article', articleCont.getArticle);
 
-router.get('/article', articleCont.getArticleById);
-router.get('/search/article', articleCont.searchArticle); 
+router.get('/search', getArticle);
 
 module.exports = router;
