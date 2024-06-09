@@ -38,20 +38,6 @@ const getVideoByImg = async (req, res) => {
       where: { label },
   });
 
-    //label = label ? label.toLowerCase() : null;
-
-    // if (label) {
-    //   vid = await prisma.video.findMany({
-    //     where: {
-    //       label: { contains: label },
-    //     },
-    //   });
-    // } else {
-    //   return res
-    //     .status(400)
-    //     .json({ error: "Title or tags query parameter is required" });
-    // }
-
     res.json(vid);
   } catch (error) {
     console.error("Error searching articles:", error);
