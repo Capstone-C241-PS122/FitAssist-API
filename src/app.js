@@ -13,10 +13,10 @@ const libRoute = require('./routes/library');
 
 
 app.use('/', articleRoutes);
-app.use('/', feedbackRoute);
-app.use('/', nutritionPredictionRoute);
-app.use('/', vidRoute);
-app.use('/', libRoute);
+app.use('/', feedbackRoute); //oke
+app.use('/', nutritionPredictionRoute); //oke tp ganti ke get
+app.use('/', vidRoute); //oke
+app.use('/', libRoute); //oke
 
 
 app.listen(PORT, () => {

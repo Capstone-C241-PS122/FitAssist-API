@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,79 +7,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Article {
-  id            Int @id
-  Title         String
-  Description   String
-  Type          String 
-  BodyPart      String 
-  Equipment     String 
-  Level         String 
+model article {
+  id          Int    @id
+  Title       String
+  Description String
+  Type        String
+  BodyPart    String
+  Equipment   String
+  Level       String
+  library        library[]
 }
 
-model Nutrition {
-  id            Int @id
-  calories      Int 
-  proteins      Float
-  fat           Float
-  carbohydrate  Float
-  name          String
+model feedback {
+  id          Int    @id @default(autoincrement())
+  description String
 }
 
-model Video {
-  id             Int @id
+model library {
+  id_library  Int     @id @default(autoincrement())
+  vidId       Int?
+  articleId   Int?
+  type        String
+  title       String?
+  description String?
+  video       video?   @relation(fields: [vidId], references: [id])
+  article     article? @relation(fields: [articleId], references: [id])
+  videoT       video?   @relation(fields: [title], references: [name_exercise])
+  articleT     article? @relation(fields: [title], references: [Title])
+}
+
+model nutrition {
+  id           Int    @id
+  calories     Int
+  proteins     Float
+  fat          Float
+  carbohydrate Float
+  name         String
+}
+
+model video {
+  id             Int       @id
   name_exercise  String
   description    String
   name_equipment String
   url_video      String
   label          String
-}
-
-//untuk tes
-model Feedback {
-  id            Int @id @default(autoincrement())
-  description   String
-}
-
-model Library {
-  id_library     Int @id @default(autoincrement())
-  vidId          video @relation(fields: [vidId], references: [id]) //apa 
-  type           String
-  title          String
-  description    String?
-}
-
-//contoh
-model vehicle {
-  id            String @id @default(uuid())
-  analysis analysis_result[]
-}
-
-model analysis_result {
-  id                Int     @id @default(autoincrement())
-  vehicle           vehicle @relation(fields: [vehicleId], references: [id])
-  vehicleId         String
-  alert             Alert?
-  path              String
-  ear               Float
-  mar               Float
-  yawning_duration  Float
-  notfocus_duration Float
-  bottle_duration   Float
-  phone_duration    Float
-  cigarette_duration Float
-  vape_duration     Float
-  smoke_duration     Float
-}
-
-model Alert {
-  id   String   @id @default(uuid())
-  time      DateTime @default(now())
-  analysis  analysis_result @relation(fields: [analysis_result_Id], references: [id])
-  analysis_result_Id Int @unique
-  vehicleId String
-  status    String
-  imgPath   String
-  lat       Float   
-  long      Float   
+  library        library[]
 }
