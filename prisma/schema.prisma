@@ -46,3 +46,10 @@ model Feedback {
   id            Int @id @default(autoincrement())
   description   String
 }
+
+model Library {
+  id_library     Int @id @default(autoincrement())
+  type           String
+  title          String
+  description    String?
+}

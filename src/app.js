@@ -9,14 +9,16 @@ const feedbackRoute = require('./routes/feedback');
 const nutritionPredictionRoute = require('./routes/nutrition');
 const articleRoutes = require('./routes/article');
 const vidRoute = require('./routes/video');
+const libRoute = require('./routes/library');
 
 
 app.use('/', articleRoutes);
 app.use('/', feedbackRoute);
 app.use('/', nutritionPredictionRoute);
 app.use('/', vidRoute);
+app.use('/', libRoute);
 
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port http://localhost:${PORT}`);
 });

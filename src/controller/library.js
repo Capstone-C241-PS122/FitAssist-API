@@ -2,10 +2,10 @@ const prisma = require("../prisma");
 
 const createLibrary = async (req, res) => {
   try {
-    const { type,title } = req.body;
+    const { type,id } = req.body;
 
     const postLibrary = await prisma.library.create({
-      data: { type,title },
+      data: { type,id },
     });
 
     res.status(201).json({

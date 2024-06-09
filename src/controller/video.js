@@ -30,8 +30,6 @@ const getVideoById = async (req, res) => {
 //predict to get video
 const getVideoByImg = async (req, res) => {
   try {
-    // let { label } = req.query;
-    // let vid = [];
     const label = req.query;
 
     const vid = await prisma.video.findFirst({
