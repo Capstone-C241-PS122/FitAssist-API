@@ -15,7 +15,6 @@ model article {
   BodyPart    String
   Equipment   String
   Level       String
-  library        library[]
 }
 
 model feedback {
