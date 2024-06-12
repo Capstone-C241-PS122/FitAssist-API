@@ -8,9 +8,24 @@ const createLibrary = async (req, res) => {
       return res.status(400).json({ error: "Video ID is required" });
     }
 
+    // Fetch video details from video table
+    const video = await prisma.video.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!video) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+
     const postLibraryVid = await prisma.library.create({
       data: {
         vidId: id,
+        name_exercise: video.name_exercise,
+        url_video: video.url_video,
+        bodypart: video.bodypart,
+        name_equipment: video.name_equipment,
       },
     });
 
