@@ -32,10 +32,10 @@ model library {
   id              Int     @id @default(autoincrement())
   vidId           Int
   vidio           video   @relation(fields: [vidId], references: [id])
-  name_exercise   String?  //@map("name_exercise")
-  url_video       String?  //@map("url_video")
-  bodypart        String?  //@map("bodypart")
-  name_equipment  String?  //@map("equipment")
+  name_exercise   String?  
+  url_video       String?  
+  bodypart        String?  
+  name_equipment  String?  
 }
 
 

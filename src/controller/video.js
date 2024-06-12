@@ -7,7 +7,7 @@ const getAllVideos = async (req, res) => {
       res.json(videos);
     } catch (error) {
       console.error("Gagal menampilkan Video:", error);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: "Terjadi kesalahan pada server" });
     }
 };
 
@@ -23,7 +23,7 @@ const getVideoById = async (req, res) => {
       res.json(vid);
     } catch (error) {
       console.error("Gagal menampilkan video:", error);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: "Terjadi kesalahan pada server" });
     }
   };
 
@@ -39,7 +39,7 @@ const getVideoByImg = async (req, res) => {
     res.json(vid);
   } catch (error) {
     console.error("Error searching articles:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Terjadi kesalahan pada server" });
   }
 };
 
