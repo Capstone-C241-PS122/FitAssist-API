@@ -47,3 +47,8 @@ model nutrition {
   carbohydrate Float
   name         String
 }
+
+model feedback {
+  id          Int   @id @default(autoincrement())
+  description String
+}
