@@ -22,30 +22,16 @@ const predictNutrition = async (req, res) => {
         };
 
         res.status(200).json({
-            message: "Nutrition prediction successful",
+            message: "Prediksi Nutrisi Berhasil",
             predictedNutrition,
         });
     } catch (error) {
-        console.error("Error predicting nutrition:", error);
-        res.status(500).json({ error: "Internal server error" });
+        console.error("Prediksi Gagal:", error);
+        res.status(500).json({ error: "Terjadi kesalahan pada server" });
     }
 };
 
-
-// const predictNutrition = async (req, res) => {
-//     try {
-//       const {name, weight} = req.query;
-  
-//       const nutrisi = await prisma.nutrition.findFirst({
-//         where: { name, weight },
-//     });
-  
-//       res.json(nutrisi);
-//     } catch (error) {
-//       console.error("Error searching articles:", error);
-//       res.status(500).json({ error: "Internal server error" });
-//     }
-//   };
-
-module.exports = predictNutrition;
+module.exports = { 
+    predictNutrition
+};
 
