@@ -1,6 +1,6 @@
 const prisma = require('../prisma');
 
-/*
+
 const predictNutrition = async (req, res) => {
     try {
         const { name, weight } = req.body;
@@ -30,22 +30,22 @@ const predictNutrition = async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 };
-*/
 
-const predictNutrition = async (req, res) => {
-    try {
-      const {name, weight} = req.query;
+
+// const predictNutrition = async (req, res) => {
+//     try {
+//       const {name, weight} = req.query;
   
-      const nutrisi = await prisma.nutrition.findFirst({
-        where: { name, weight },
-    });
+//       const nutrisi = await prisma.nutrition.findFirst({
+//         where: { name, weight },
+//     });
   
-      res.json(nutrisi);
-    } catch (error) {
-      console.error("Error searching articles:", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  };
+//       res.json(nutrisi);
+//     } catch (error) {
+//       console.error("Error searching articles:", error);
+//       res.status(500).json({ error: "Internal server error" });
+//     }
+//   };
 
 module.exports = predictNutrition;
 
