@@ -7,43 +7,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-//rev
 model article {
-  id          Int    @id
-  Title       String
-  Description String
-  Type        String
-  BodyPart    String
-  Equipment   String
-  Level       String
-  library     libraryArt @relation(fields: [], references: [])
-  libraryId   Int
+  id            Int    @id
+  Title         String
+  Description   String
+  Type          String
+  BodyPart      String
+  Equipment     String
+  Level         String
 }
 
-model feedback {
-  id          Int    @id @default(autoincrement())
-  description String
+model video {
+  id             Int       @id
+  name_exercise  String
+  description    String
+  name_equipment String
+  bodypart       String
+  url_video      String
+  label          String
+  libraries      library[]
 }
 
-
-model libraryVid {
-  id_library      Int     @id @default(autoincrement())
-  type            String
-  name_exercise   String?
-  description     String?
-  videos          video[]
+model library { 
+  id              Int     @id @default(autoincrement())
+  vidId           Int
+  vidio           video   @relation(fields: [vidId], references: [id])
+  name_exercise   String?  //@map("name_exercise")
+  url_video       String?  //@map("url_video")
+  bodypart        String?  //@map("bodypart")
+  name_equipment  String?  //@map("equipment")
 }
 
-
-//rev
-model libraryArt {
-  id_library  Int     @id @default(autoincrement())
-  type        String
-  Title       String
-  Description String?
-  articles    article[]
-}
 
 model nutrition {
   id           Int    @id
@@ -52,15 +46,4 @@ model nutrition {
   fat          Float
   carbohydrate Float
   name         String
-}
-
-model video {
-  id             Int       @id
-  name_exercise  String
-  description    String
-  name_equipment String
-  url_video      String
-  label          String
-  library        libraryVid @relation(fields: [libraryId], references: [id])
-  libraryId      Int
 }

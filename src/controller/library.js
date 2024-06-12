@@ -1,10 +1,36 @@
 const prisma = require("../prisma");
 
-const createLibraryVid = async (req, res) => {
+const createLibrary = async (req, res) => {
   try {
-    const{type, id} = req.body;
+    const { id } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ error: "Video ID is required" });
+    }
+
     const postLibraryVid = await prisma.library.create({
-      data: {type, id},
+      data: {
+        vidId: id,
+      },
+    });
+
+    res.status(201).json({
+      message: "Video disimpan ke Library",
+      postLibraryVid,
+    });
+  } catch (error) {
+    console.error("Gagal menyimpan ke Library:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
+/*
+const createLibrary = async (req, res) => {
+  try {
+    const{id} = req.body;
+    const postLibraryVid = await prisma.library.create({
+      data: {id},
     });
     res.status(201).json({
       message: "Video disimpan ke Library",
@@ -15,22 +41,7 @@ const createLibraryVid = async (req, res) => {
     res.status(500).json({ error: "Internal server error"});
   }
 };
-
-const createLibraryArt = async (req, res) => {
-  try {
-    const{type, id} = req.body;
-    const postLibraryArt = await prisma.library.create({
-      data: {type, id},
-    });
-    res.status(201).json({
-      message: "Artikel disimpan ke Library",
-      postLibraryArt,
-    });
-  }catch (error) {
-    console.error("Gagal menyimpan ke Library:", error);
-    res.status(500).json({ error: "Internal server error"});
-  }
-};
+*/
 
 
 // const createLibrary = async (req, res) => {
@@ -142,8 +153,7 @@ const deleteLibrary = async (req, res) => {
 
 
 module.exports = {
-  createLibraryVid,
-  createLibraryArt,
+  createLibrary,
   getAllLibraries,
   deleteLibrary, //done
 };
