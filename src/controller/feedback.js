@@ -3,7 +3,6 @@ console.log(prisma);
 
 const createFeedback = async (req, res) => {
     try {
-        // Logika untuk menangani permintaan POST
         const { description} = req.body;
 
         const postFeedback = await prisma.feedback.create({

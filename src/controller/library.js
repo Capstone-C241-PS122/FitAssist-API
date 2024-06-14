@@ -8,7 +8,6 @@ const createLibrary = async (req, res) => {
       return res.status(400).json({ error: "Video ID is required" });
     }
 
-    // Fetch video details from video table
     const video = await prisma.video.findUnique({
       where: {
         id: id,
@@ -51,18 +50,37 @@ const getAllLibraries = async (req, res) => {
 
 const deleteLibrary = async (req, res) => {
   try {
-    const { id_library } = req.params;
-    await prisma.library.delete({ where: { id_library: parseInt(id_library) } });
-    res.json({ message: "Dihapus" });
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ error: "Library ID diperlukan" });
+    }
+
+    const library = await prisma.library.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    if (!library) {
+      return res.status(404).json({ error: "Library tidak ditemukan" });
+    }
+
+    await prisma.library.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    res.json({ message: "Library berhasil dihapus" });
   } catch (error) {
     console.error("Gagal menghapus:", error);
     res.status(500).json({ error: "Terjadi kesalahan pada server" });
   }
 };
 
-
 module.exports = {
   createLibrary,
   getAllLibraries,
-  deleteLibrary, //done
+  deleteLibrary,
 };
