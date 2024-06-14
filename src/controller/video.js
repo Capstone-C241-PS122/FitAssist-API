@@ -1,6 +1,5 @@
 const prisma = require('../prisma');
 
-
 const getAllVideos = async (req, res) => {
     try {
       const videos = await prisma.video.findMany();
@@ -27,24 +26,35 @@ const getVideoById = async (req, res) => {
     }
   };
 
-//predict to get video
-const getVideoByImg = async (req, res) => {
-  try {
-    const label = req.query;
+  const getVideoByImg = async (req, res) => {
+    try {
+        const { label } = req.body;
 
-    const vid = await prisma.video.findFirst({
-      where: { label },
-  });
+        if (!label) {
+            return res.status(400).json({ error: "Label is required" });
+        }
 
-    res.json(vid);
-  } catch (error) {
-    console.error("Error searching articles:", error);
-    res.status(500).json({ error: "Terjadi kesalahan pada server" });
-  }
+        const vid = await prisma.video.findMany({
+            where: { 
+                label: {
+                    contains: label,
+                },
+            },
+        });
+
+        if (vid.length === 0) {
+            return res.status(404).json({ error: "Video tidak ditemukan" });
+        }
+
+        res.json(vid);
+    } catch (error) {
+        console.error("Error searching video:", error);
+        res.status(500).json({ error: "Terjadi kesalahan pada server" });
+    }
 };
-
-
-
+  
 module.exports = {
-  getAllVideos, getVideoById, getVideoByImg
+  getAllVideos, 
+  getVideoById, 
+  getVideoByImg,
 };

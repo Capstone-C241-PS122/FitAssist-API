@@ -1,10 +1,8 @@
 const prisma = require('../prisma');
 
-
 const predictNutrition = async (req, res) => {
     try {
         const { name, weight } = req.body;
-
         const food = await prisma.nutrition.findFirst({
             where: { name },
         });
@@ -14,10 +12,10 @@ const predictNutrition = async (req, res) => {
         }
 
         const predictedNutrition = {
-            calories: Math.round(food.calories * weight),
-            proteins: parseFloat((food.proteins * weight).toFixed(2)),
-            fat: parseFloat((food.fat * weight).toFixed(2)),
-            carbohydrate: parseFloat((food.carbohydrate * weight).toFixed(2)),
+            calories: Math.round((food.calories / 100) * weight),
+            proteins: parseFloat(((food.proteins / 100) * weight).toFixed(2)),
+            fat: parseFloat(((food.fat / 100) * weight).toFixed(2)),
+            carbohydrate: parseFloat(((food.carbohydrate / 100) * weight).toFixed(2)),
             name: food.name,
         };
 
@@ -34,4 +32,3 @@ const predictNutrition = async (req, res) => {
 module.exports = { 
     predictNutrition
 };
-

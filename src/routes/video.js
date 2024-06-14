@@ -8,4 +8,3 @@ router.post('/up/video', videoCont.getVideoByImg);
 
 
 module.exports = router;
-
