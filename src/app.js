@@ -13,9 +13,9 @@ const libRoute = require('./routes/library');
 
 
 app.use('/', articleRoutes);
-app.use('/', feedbackRoute); //oke
-app.use('/', nutritionRoute); //oke tp ganti ke get
-app.use('/', vidRoute); //oke
+app.use('/', feedbackRoute); 
+app.use('/', nutritionRoute); 
+app.use('/', vidRoute); 
 app.use('/', libRoute); 
 
 app.listen(PORT, () => {
