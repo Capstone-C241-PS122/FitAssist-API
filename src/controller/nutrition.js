@@ -25,7 +25,7 @@ const predictNutrition = async (req, res) => {
 
         res.status(200).json({
             message: "Prediksi Nutrisi Berhasil",
-            predictedNutrition,
+            predictedNutrition
         });
     } catch (error) {
         console.error("Prediksi Gagal:", error);
