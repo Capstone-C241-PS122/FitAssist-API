@@ -2,19 +2,17 @@ const prisma = require('../prisma');
 
 const predictNutrition = async (req, res) => {
     try {
-        const { name, weight } = req.params; //prev body
-        const food = await prisma.nutrition.findMany({ //prev find first
-            where: { //no contains
-                name: {
-                    contains: name, 
-                },
+        const { name, weight } = req.query;
+        const food = await prisma.nutrition.findFirst({
+            where: { 
+                name: name,
             }
         });
 
         if (!food) {
             return res.status(404).json({ error: "Data tidak ditemukan" });
         }
-
+        
         const predictedNutrition = {
             calories: Math.round((food.calories / 100) * weight),
             proteins: parseFloat(((food.proteins / 100) * weight).toFixed(2)),
