@@ -2,9 +2,13 @@ const prisma = require('../prisma');
 
 const predictNutrition = async (req, res) => {
     try {
-        const { name, weight } = req.body;
-        const food = await prisma.nutrition.findFirst({
-            where: { name },
+        const { name, weight } = req.params; //prev body
+        const food = await prisma.nutrition.findMany({ //prev find first
+            where: { //no contains
+                name: {
+                    contains: name, 
+                },
+            }
         });
 
         if (!food) {
