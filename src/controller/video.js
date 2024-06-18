@@ -5,8 +5,8 @@ const getAllVideos = async (req, res) => {
       const videos = await prisma.video.findMany();
       res.json(videos);
     } catch (error) {
-      console.error("Gagal menampilkan Video:", error);
-      res.status(500).json({ error: "Terjadi kesalahan pada server" });
+      console.error("Failed to display video:", error);
+      res.status(500).json({ error: "An error occurred on the server" });
     }
 };
 
@@ -17,12 +17,12 @@ const getVideoById = async (req, res) => {
         where: { id: parseInt(id) },
       });
       if (!vid) {
-        return res.status(404).json({ error: "Video tidak ditemukan" });
+        return res.status(404).json({ error: "Video not found" });
       }
       res.json(vid);
     } catch (error) {
-      console.error("Gagal menampilkan video:", error);
-      res.status(500).json({ error: "Terjadi kesalahan pada server" });
+      console.error("Failed to display video:", error);
+      res.status(500).json({ error: "An error occurred on the server" });
     }
   };
 
@@ -43,13 +43,13 @@ const getVideoById = async (req, res) => {
         });
 
         if (vid.length === 0) {
-            return res.status(404).json({ error: "Video tidak ditemukan" });
+            return res.status(404).json({ error: "Video not found" });
         }
 
         res.json(vid);
     } catch (error) {
         console.error("Error searching video:", error);
-        res.status(500).json({ error: "Terjadi kesalahan pada server" });
+        res.status(500).json({ error: "An error occurred on the server" });
     }
 };
   
