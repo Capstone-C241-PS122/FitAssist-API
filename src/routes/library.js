@@ -4,6 +4,6 @@ const libraryCont = require('../controller/library');
 
 router.post('/home/library',libraryCont.createLibrary);
 router.get('/library', libraryCont.getAllLibraries);
-router.delete('/library/:id',libraryCont.deleteLibrary);
+router.delete('/library/:id_library',libraryCont.deleteLibrary);
 
 module.exports = router;

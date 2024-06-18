@@ -3,6 +3,7 @@ console.log(prisma);
 
 const createFeedback = async (req, res) => {
     try {
+        // Logika untuk menangani permintaan POST
         const { description} = req.body;
 
         const postFeedback = await prisma.feedback.create({
@@ -15,7 +16,7 @@ const createFeedback = async (req, res) => {
         });
     } catch (error) {
         console.error("Gagal mengirim feedback:", error);
-        res.status(500).json({ error: "Terjadi kesalahan pada server" });
+        res.status(500).json({ error: "Internal server error" });
     }
 };
 
