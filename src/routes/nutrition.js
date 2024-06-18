@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const nutritionCont = require('../controller/nutrition');
+const {predictNutrition} = require('../controller/nutrition');
 
-//belum lengkap
-router.post('/nutrition', nutritionCont.predictNutrition);
+router.get('/nutrition', predictNutrition);
 
-
-module.exports = router; //blm fix
+module.exports = router; 
