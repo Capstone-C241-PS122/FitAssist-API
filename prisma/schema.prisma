@@ -8,36 +8,33 @@ datasource db {
 }
 
 model article {
-  id            Int    @id
-  Title         String
-  Description   String
-  Type          String
-  BodyPart      String
-  Equipment     String
-  Level         String
+  id          Int    @id
+  Title       String
+  Description String
+  Type        String
+  BodyPart    String
+  Equipment   String
+  Level       String
+  library        library[]
 }
 
-model video {
-  id             Int       @id
-  name_exercise  String
-  description    String
-  name_equipment String
-  bodypart       String
-  url_video      String
-  label          String
-  libraries      library[]
+model feedback {
+  id          Int    @id @default(autoincrement())
+  description String
 }
 
-model library { 
-  id              Int     @id @default(autoincrement())
-  vidId           Int
-  vidio           video   @relation(fields: [vidId], references: [id])
-  name_exercise   String?  
-  url_video       String?  
-  bodypart        String?  
-  name_equipment  String?  
+model library {
+  id_library  Int     @id @default(autoincrement())
+  vidId       Int?
+  articleId   Int?
+  type        String
+  title       String?
+  description String?
+  video       video?   @relation(fields: [vidId], references: [id])
+  article     article? @relation(fields: [articleId], references: [id])
+  videoT       video?   @relation(fields: [title], references: [name_exercise])
+  articleT     article? @relation(fields: [title], references: [Title])
 }
-
 
 model nutrition {
   id           Int    @id
@@ -48,7 +45,12 @@ model nutrition {
   name         String
 }
 
-model feedback {
-  id          Int   @id @default(autoincrement())
-  description String
+model video {
+  id             Int       @id
+  name_exercise  String
+  description    String
+  name_equipment String
+  url_video      String
+  label          String
+  library        library[]
 }
