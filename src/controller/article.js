@@ -5,7 +5,7 @@ const getArticleByBodyPart = async (req, res) => {
   if (!bodypart) {
     return res.status(400).json({
       error: true,
-      message: "Parameter 'bodypart' diperlukan",
+      message: "The 'bodypart' parameter is required",
     });
   }
 
@@ -21,13 +21,13 @@ const getArticleByBodyPart = async (req, res) => {
     if (articles.length === 0) {
       return res.status(404).json({
         error: true,
-        message: "Data tidak ditemukan",
+        message: "Bodypart not found",
       });
     }
 
     return res.json({
       error: false,
-      message: "Berikut hasil pencarian Anda",
+      message: "Here are your search results",
       list_article: articles.map(article => ({
         id: article.id,
         Description: article.Description,
@@ -42,7 +42,7 @@ const getArticleByBodyPart = async (req, res) => {
     console.error("Error searching articles:", error);
     return res.status(500).json({
       error: true,
-      message: "Terjadi kesalahan pada server",
+      message: "An error occurred on the server",
     });
   }
 };
@@ -52,7 +52,7 @@ const getAllArticles = async (req, res) => {
     const articles = await prisma.article.findMany();
     return res.json({
       error: false,
-      message: "Berikut semua artikel",
+      message: "Here are all the articles",
       list_article: articles.map(article => ({
         id: article.id,
         Description: article.Description,
@@ -67,7 +67,7 @@ const getAllArticles = async (req, res) => {
     console.error("Error fetching all articles:", error);
     return res.status(500).json({
       error: true,
-      message: "Terjadi kesalahan pada server",
+      message: "An error occurred on the server",
     });
   }
 };
@@ -82,13 +82,13 @@ const getArticleById = async (req, res) => {
     if (!article) {
       return res.status(404).json({
         error: true,
-        message: "Artikel tidak ditemukan",
+        message: "Article not found",
       });
     }
 
     return res.json({
       error: false,
-      message: "Artikel ditemukan",
+      message: "Article found",
       article: {
         id: article.id,
         Description: article.Description,
@@ -103,7 +103,7 @@ const getArticleById = async (req, res) => {
     console.error("Error fetching article:", error);
     return res.status(500).json({
       error: true,
-      message: "Terjadi kesalahan pada server",
+      message: "An error occurred on the server",
     });
   }
 };

@@ -10,7 +10,7 @@ const predictNutrition = async (req, res) => {
         });
 
         if (!food) {
-            return res.status(404).json({ error: "Data tidak ditemukan" });
+            return res.status(404).json({ error: "Data not found" });
         }
         
         const predictedNutrition = {
@@ -22,12 +22,12 @@ const predictNutrition = async (req, res) => {
         };
 
         res.status(200).json({
-            message: "Prediksi Nutrisi Berhasil",
+            message: "Nutrition Prediction Successful",
             predictedNutrition
         });
     } catch (error) {
-        console.error("Prediksi Gagal:", error);
-        res.status(500).json({ error: "Terjadi kesalahan pada server" });
+        console.error("Prediction Failed:", error);
+        res.status(500).json({ error: "An error occurred on the server" });
     }
 };
 

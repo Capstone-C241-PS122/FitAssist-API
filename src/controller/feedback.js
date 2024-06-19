@@ -10,12 +10,12 @@ const createFeedback = async (req, res) => {
         });
 
         res.status(201).json({
-            message: "Feedback terkirim",
+            message: "Feedback sent",
             postFeedback,
         });
     } catch (error) {
-        console.error("Gagal mengirim feedback:", error);
-        res.status(500).json({ error: "Terjadi kesalahan pada server" });
+        console.error("Failed to send feedback", error);
+        res.status(500).json({ error: "An error occurred on the server" });
     }
 };
 

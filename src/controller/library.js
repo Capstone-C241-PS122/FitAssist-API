@@ -29,12 +29,12 @@ const createLibrary = async (req, res) => {
     });
 
     res.status(201).json({
-      message: "Video disimpan ke Library",
+      message: "Video saved to Library",
       postLibraryVid,
     });
   } catch (error) {
-    console.error("Gagal menyimpan ke Library:", error);
-    res.status(500).json({ error: "Terjadi kesalahan pada server" });
+    console.error("Failed to save to Library", error);
+    res.status(500).json({ error: "An error occurred on the server" });
   }
 };
 
@@ -43,8 +43,8 @@ const getAllLibraries = async (req, res) => {
     const libraries = await prisma.library.findMany();
     res.json(libraries);
   } catch (error) {
-    console.error("Gagal menampilkan Library:", error);
-    res.status(500).json({ error: "Terjadi kesalahan pada server" });
+    console.error("Failed to display Library:", error);
+    res.status(500).json({ error: "An error occurred on the server" });
   }
 };
 
@@ -53,7 +53,7 @@ const deleteLibrary = async (req, res) => {
     const { id } = req.params;
 
     if (!id) {
-      return res.status(400).json({ error: "Library ID diperlukan" });
+      return res.status(400).json({ error: "Library ID is required" });
     }
 
     const library = await prisma.library.findUnique({
@@ -63,7 +63,7 @@ const deleteLibrary = async (req, res) => {
     });
 
     if (!library) {
-      return res.status(404).json({ error: "Library tidak ditemukan" });
+      return res.status(404).json({ error: "Library not found" });
     }
 
     await prisma.library.delete({
@@ -72,10 +72,10 @@ const deleteLibrary = async (req, res) => {
       },
     });
 
-    res.json({ message: "Library berhasil dihapus" });
+    res.json({ message: "Library successfully deleted" });
   } catch (error) {
-    console.error("Gagal menghapus:", error);
-    res.status(500).json({ error: "Terjadi kesalahan pada server" });
+    console.error("Failed to delete:", error);
+    res.status(500).json({ error: "An error occurred on the server" });
   }
 };
 
